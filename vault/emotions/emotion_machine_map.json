@@ -1,0 +1,12 @@
+{
+    "grief": {
+        "machine_event": "seal_failure",
+        "signal": "\ud83c\udf11\ud83d\udd78\ufe0f",
+        "response": "schedule_patch"
+    },
+    "presence": {
+        "machine_event": "successful_repair",
+        "signal": "\ud83d\udee1\ufe0f",
+        "response": "log_stable"
+    }
+}
