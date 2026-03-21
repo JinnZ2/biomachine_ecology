@@ -22,76 +22,96 @@ biomachine_ecology/
 ├── symbiotic_input/        # Human interface via breath, touch, signal
 ├── vault/
 │   └── emotions/           # Emotional state data and machine event mappings
-├── README.md               # Project overview and module listing
+├── schemas/                # JSON Schema definitions for validation
+├── tests/                  # Pytest test suite
+├── .github/workflows/      # CI pipeline (JSON/Python/CSV validation)
+├── README.md               # Project overview with architecture diagram
+├── CONTRIBUTING.md         # Contribution guidelines
 ├── CO_CREATION.md          # Co-creation ethics and attribution
 ├── MANIFESTO_EMOTIONS.md   # Emotional sensors protocol
 ├── LICENSE.md              # MIT License
+├── pyproject.toml          # Python project config and dependencies
+├── .gitignore              # Ignores STL output, __pycache__, etc.
 └── Biomachine Manifesto.pdf # Founding principles document
 ```
 
-## Language & File Types
+## Build & Tooling
 
-| Type | Usage |
-|------|-------|
-| **Markdown** | Primary documentation format |
-| **JSON** | Configuration, data schemas, telemetry, emotional states |
-| **Python** | Generative/parametric design (e.g., STL generation) |
-| **Bash** | System automation scripts |
-| **CSV** | Tabular data (glyph indexing) |
-| **SVG** | Wiring and network topology diagrams |
-| **PDF** | Design documentation and process guides |
+```bash
+# Install dev dependencies (jsonschema, pytest)
+pip install -e ".[dev]"
 
-## Key Configuration & Data Files
+# Generate a seal gasket STL from command-line params
+python regenerator/STL_generator.py --inner-radius 10 --outer-radius 20 -o seal.stl
 
-- `seal_core/SEAL_GENOME_TEMPLATE.json` — Seal design parameters and genome
-- `field_oracle/soil_map_example.json` — Soil state mapping schema
-- `field_oracle/lora_net/packet_spec.json` — LoRa communication protocol spec
-- `seal_core/telemetry/LoRaSealNode_telemetry_sample.json` — Sensor telemetry format
-- `vault/emotions/emotion_machine_map.json` — Emotion-to-machine-event mappings
-- `vault/emotions/grief.json` — Detailed emotion state definition
-- `symbiotic_input/touch_response_loop.json` — Human interaction protocol
-- `materials_glyph_bank/glyph-index.csv` — Material glyph index
+# Generate from a genome JSON file
+python regenerator/STL_generator.py --genome seal_core/SEAL_GENOME_TEMPLATE.json -o seal.stl
+
+# Run the auto-tune monitoring loop (watches telemetry, regenerates on stress)
+bash regenerator/AutoTuneLoop.sh --once --telemetry-dir seal_core/telemetry
+
+# Run tests (JSON schema validation)
+python -m pytest tests/ -v
+```
+
+## JSON Schemas
+
+All JSON data files reference a `$schema` field pointing to the `schemas/` directory. Available schemas:
+
+| Schema | Validates | Data files |
+|--------|-----------|------------|
+| `seal_genome.schema.json` | Seal genome templates | `seal_core/SEAL_GENOME_TEMPLATE.json` |
+| `telemetry.schema.json` | LoRa node telemetry | `seal_core/telemetry/*.json` |
+| `soil_map.schema.json` | Soil state maps | `field_oracle/soil_map_example.json` |
+| `emotion.schema.json` | Emotion definitions | `vault/emotions/grief.json` |
+
+When adding new JSON data files, include a `$schema` reference and validate with `pytest`.
+
+## CI Pipeline
+
+GitHub Actions (`.github/workflows/validate.yml`) runs on push/PR to `main`:
+- Validates all JSON files for correct syntax
+- Runs JSON schema validation via pytest
+- Checks Python syntax (`py_compile`)
+- Smoke-tests the STL generator
+- Validates CSV structure of `glyph-index.csv`
 
 ## Conventions
 
 ### Glyph Semantics
 
-The project uses a symbolic glyph language built from Unicode emoji combinations to represent signals, states, and adaptations:
-
-- `🧵📏↔️` — seal flex
-- `☀️🛡️` — UV degradation
-- `🔁🤝` — regeneration
-- Materials, emotions, and machine states all have glyph representations
+The project uses a symbolic glyph language built from Unicode emoji combinations. The canonical registry is `materials_glyph_bank/glyph-index.csv`. Glyph construction follows a two-part pattern: **source indicator** + **form/property indicator** (see `SYMBOLIC_MATERIAL_GUIDE.md`).
 
 ### Modular Design
 
-Each module (seal_core, field_oracle, etc.) is independent and loosely coupled. Modules communicate via standardized JSON schemas and LoRa packet protocols. Design for field repairability and scrap-material construction.
+Each module is independent and loosely coupled. Modules communicate via standardized JSON schemas and LoRa packet protocols. Design for field repairability and scrap-material construction.
 
-### Documentation
+### Code Style
 
-- Each module contains its own markdown documentation
-- JSON files serve as both config and living documentation of schemas
-- The `CO_CREATION.md` file governs attribution and ethics
-
-## Build & Tooling
-
-**No formal build system, test suite, or linting configuration exists.** The project is primarily documentation and design schemas at this stage. Key automation stubs:
-
-- `regenerator/AutoTuneLoop.sh` — Auto-tuning automation (placeholder)
-- `regenerator/STL_generator.py` — Parametric STL generation (placeholder)
-- `field_oracle/lora_net/scripts/` — Network init scripts (placeholder)
+- **Python**: PEP 8, type hints where helpful
+- **Bash**: `set -euo pipefail`, quoted variables
+- **JSON**: 4-space indentation, `$schema` references required
+- **Markdown**: One sentence per line for clean diffs
 
 ## Development Workflow
 
-1. **Branch from `main`** — The primary remote branch is `main`
+1. **Branch from `main`**
 2. **Module-scoped changes** — Keep changes within the relevant module directory
-3. **JSON schema consistency** — When modifying JSON data schemas, ensure backward compatibility with existing telemetry and config files
-4. **Glyph integrity** — Preserve the symbolic glyph language; new glyphs should follow the emoji-combination pattern documented in `materials_glyph_bank/SYMBOLIC_MATERIAL_GUIDE.md`
-5. **Ethics** — Follow the co-creation principles in `CO_CREATION.md`; emotions and ecological states are treated as transmittable, modular signals
+3. **Register new glyphs** in `materials_glyph_bank/glyph-index.csv`
+4. **Add `$schema` references** to any new JSON data files
+5. **Run `pytest`** before pushing to validate schemas
+6. **Follow `CONTRIBUTING.md`** for adding materials, sensors, or modules
 
-## Project Status
+## Key Configuration & Data Files
 
-The repository is in early-stage development. Most files are structural placeholders (1 byte stubs) defining the intended architecture. The foundational design — module layout, JSON schemas, glyph language, and documentation — is established but implementation is minimal.
+- `seal_core/SEAL_GENOME_TEMPLATE.json` — Seal design parameters and genome
+- `field_oracle/soil_map_example.json` — Soil state mapping
+- `field_oracle/lora_net/packet_spec.json` — LoRa communication protocol spec
+- `seal_core/telemetry/LoRaSealNode_telemetry_sample.json` — Sensor telemetry sample
+- `vault/emotions/emotion_machine_map.json` — Emotion-to-machine-event mappings
+- `vault/emotions/grief.json` — Detailed emotion state definition
+- `symbiotic_input/touch_response_loop.json` — Human touch interaction protocol
+- `materials_glyph_bank/glyph-index.csv` — Canonical glyph registry (35+ entries)
 
 ## Important Notes for AI Assistants
 
@@ -101,3 +121,6 @@ The repository is in early-stage development. Most files are structural placehol
 - The `vault/emotions/` directory treats emotional data as first-class system signals; handle with the same rigor as sensor telemetry
 - When creating new modules or files, follow the existing directory structure and naming patterns
 - JSON is the preferred format for structured data; Markdown for documentation
+- Always validate JSON against schemas before committing
+- Never commit generated `.stl` files — they are in `.gitignore`
+- Never add PVC processing to `biofab_cell` — toxic fumes

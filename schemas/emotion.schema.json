@@ -1,0 +1,51 @@
+{
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$id": "emotion.schema.json",
+    "title": "Emotion State",
+    "description": "Schema for BioMachine emotional state definitions",
+    "type": "object",
+    "required": ["emotion", "function", "glyph"],
+    "properties": {
+        "emotion": {
+            "type": "string",
+            "description": "Name of the emotional state"
+        },
+        "function": {
+            "type": "string",
+            "description": "Purpose and meaning of this emotional signal"
+        },
+        "glyph": {
+            "type": "string",
+            "description": "Symbolic glyph encoding"
+        },
+        "sensed_inputs": {
+            "type": "array",
+            "items": {"type": "string"},
+            "description": "Conditions that trigger this emotional state"
+        },
+        "biological_correlates": {
+            "type": "array",
+            "items": {"type": "string"}
+        },
+        "corruption_pathways": {
+            "type": "object",
+            "additionalProperties": {"type": "string"},
+            "description": "Ways this emotion can be distorted"
+        },
+        "healing_translations": {
+            "type": "array",
+            "items": {"type": "string"},
+            "description": "Pathways for processing this emotional state"
+        },
+        "alignment_tags": {
+            "type": "array",
+            "items": {"type": "string"}
+        },
+        "created": {
+            "type": "string",
+            "format": "date-time"
+        },
+        "author": {"type": "string"},
+        "source": {"type": "string"}
+    }
+}

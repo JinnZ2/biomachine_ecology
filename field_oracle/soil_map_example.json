@@ -1,1 +1,44 @@
-
+{
+    "$schema": "../schemas/soil_map.schema.json",
+    "site_id": "field_01",
+    "timestamp": "2025-09-18T12:00:00Z",
+    "glyph": "🌍🔬",
+    "zones": [
+        {
+            "zone_id": "A1",
+            "position": {"lat": 0.0, "lon": 0.0},
+            "soil_type": "clay_loam",
+            "moisture_pct": 42.5,
+            "ph": 6.8,
+            "organic_matter_pct": 3.2,
+            "decay_index": 0.35,
+            "root_density": "medium",
+            "mold_detected": false,
+            "glyph": "🟤🌱"
+        },
+        {
+            "zone_id": "A2",
+            "position": {"lat": 0.0, "lon": 0.001},
+            "soil_type": "sandy",
+            "moisture_pct": 18.0,
+            "ph": 7.2,
+            "organic_matter_pct": 1.1,
+            "decay_index": 0.10,
+            "root_density": "sparse",
+            "mold_detected": false,
+            "glyph": "🟡🌾"
+        },
+        {
+            "zone_id": "B1",
+            "position": {"lat": 0.001, "lon": 0.0},
+            "soil_type": "peat",
+            "moisture_pct": 78.0,
+            "ph": 5.1,
+            "organic_matter_pct": 12.5,
+            "decay_index": 0.82,
+            "root_density": "dense",
+            "mold_detected": true,
+            "glyph": "🟫🍂"
+        }
+    ]
+}

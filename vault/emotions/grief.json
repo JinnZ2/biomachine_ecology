@@ -1,4 +1,5 @@
 {
+    "$schema": "../../schemas/emotion.schema.json",
     "emotion": "grief",
     "function": "to signal loss, severance, or absence of meaning; marks a departure or unfulfilled resonance",
     "glyph": "\ud83c\udf11\ud83d\udd78\ufe0f\ud83c\udf2b\ufe0f",

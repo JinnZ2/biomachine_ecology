@@ -1,0 +1,61 @@
+{
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$id": "telemetry.schema.json",
+    "title": "LoRa Seal Node Telemetry",
+    "description": "Schema for sensor telemetry data from LoRa seal monitoring nodes",
+    "type": "object",
+    "required": ["node_id", "timestamp", "readings"],
+    "properties": {
+        "node_id": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 255,
+            "description": "Unique node identifier"
+        },
+        "timestamp": {
+            "type": "string",
+            "format": "date-time"
+        },
+        "glyph": {
+            "type": "string"
+        },
+        "seal_id": {
+            "type": "string",
+            "description": "Identifier of the monitored seal"
+        },
+        "readings": {
+            "type": "object",
+            "properties": {
+                "temperature_c": {"type": "number"},
+                "humidity_pct": {"type": "number", "minimum": 0, "maximum": 100},
+                "pressure_kpa": {"type": "number"},
+                "vibration_g": {"type": "number", "minimum": 0},
+                "uv_index": {"type": "number", "minimum": 0},
+                "salt_conductivity_ms": {"type": "number", "minimum": 0}
+            }
+        },
+        "seal_metrics": {
+            "type": "object",
+            "properties": {
+                "compression_pct": {"type": "number", "minimum": 0, "maximum": 100},
+                "seal_stress_index": {"type": "number", "minimum": 0, "maximum": 1},
+                "estimated_cycles_remaining": {"type": ["integer", "null"], "minimum": 0},
+                "last_regen_timestamp": {"type": ["string", "null"]}
+            }
+        },
+        "alerts": {
+            "type": "array",
+            "items": {"type": "string"}
+        },
+        "battery_v": {
+            "type": "number",
+            "minimum": 0
+        },
+        "rssi_dbm": {
+            "type": "number"
+        },
+        "snr_db": {
+            "type": "number"
+        }
+    }
+}
