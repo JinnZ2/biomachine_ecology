@@ -92,14 +92,20 @@ def write_stl(filepath, triangles):
 
 
 def load_genome(genome_path):
-    """Load seal parameters from a genome JSON file."""
+    """Load seal parameters from a genome JSON file.
+
+    Supports both flat keys (inner_radius_mm) and nested geometry objects.
+    """
     with open(genome_path) as f:
         genome = json.load(f)
+
+    # Support nested geometry object (full genome format)
+    geo = genome.get("geometry", genome)
     return {
-        "inner_radius": genome.get("inner_radius_mm", 10.0),
-        "outer_radius": genome.get("outer_radius_mm", 20.0),
-        "thickness": genome.get("thickness_mm", 2.0),
-        "segments": genome.get("segments", 36),
+        "inner_radius": geo.get("inner_radius_mm", 10.0),
+        "outer_radius": geo.get("outer_radius_mm", 20.0),
+        "thickness": geo.get("thickness_mm", 2.0),
+        "segments": geo.get("segments", 36),
     }
 
 

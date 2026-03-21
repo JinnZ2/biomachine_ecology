@@ -1,4 +1,5 @@
 {
+    "$schema": "../../schemas/emotion_machine_map.schema.json",
     "grief": {
         "machine_event": "seal_failure",
         "signal": "\ud83c\udf11\ud83d\udd78\ufe0f",

@@ -33,6 +33,10 @@ SCHEMA_MAP = {
     "telemetry": "telemetry.schema.json",
     "soil_map": "soil_map.schema.json",
     "emotion": "emotion.schema.json",
+    "emotion_machine_map": "emotion_machine_map.schema.json",
+    "touch_response": "touch_response.schema.json",
+    "packet_spec": "packet_spec.schema.json",
+    "harvester_config": "harvester_config.schema.json",
 }
 
 

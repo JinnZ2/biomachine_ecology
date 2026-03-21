@@ -64,6 +64,10 @@ All JSON data files reference a `$schema` field pointing to the `schemas/` direc
 | `telemetry.schema.json` | LoRa node telemetry | `seal_core/telemetry/*.json` |
 | `soil_map.schema.json` | Soil state maps | `field_oracle/soil_map_example.json` |
 | `emotion.schema.json` | Emotion definitions | `vault/emotions/grief.json` |
+| `emotion_machine_map.schema.json` | Emotion-event mappings | `vault/emotions/emotion_machine_map.json` |
+| `touch_response.schema.json` | Touch input protocols | `symbiotic_input/touch_response_loop.json` |
+| `packet_spec.schema.json` | LoRa packet definitions | `field_oracle/lora_net/packet_spec.json` |
+| `harvester_config.schema.json` | Energy harvester configs | `energy_harvester/harvester_config_example.json` |
 
 When adding new JSON data files, include a `$schema` reference and validate with `pytest`.
 
