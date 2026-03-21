@@ -1,1 +1,38 @@
-
+{
+    "$schema": "../schemas/seal_genome.schema.json",
+    "name": "default_annular_gasket",
+    "version": "0.1",
+    "glyph": "🧵📏↔️",
+    "description": "Standard annular seal gasket for pipe junctions and vessel ports",
+    "geometry": {
+        "inner_radius_mm": 10.0,
+        "outer_radius_mm": 20.0,
+        "thickness_mm": 2.0,
+        "segments": 36
+    },
+    "material": {
+        "type": "recycled_HDPE",
+        "glyph": "♻️🛢️",
+        "shore_hardness": "60A",
+        "uv_resistance": "low",
+        "max_temp_c": 80
+    },
+    "tolerances": {
+        "compression_set_max_pct": 25,
+        "elongation_min_pct": 300,
+        "seal_stress_threshold": 0.70
+    },
+    "environment": {
+        "salt_exposure": true,
+        "uv_exposure": true,
+        "vibration_class": "moderate",
+        "moisture": "submerged_intermittent"
+    },
+    "regeneration": {
+        "auto_regen_on_stress": true,
+        "regen_glyph": "🔁🤝",
+        "fallback_material": "recycled_PETG"
+    },
+    "created": "2025-09-18T00:00:00Z",
+    "author": "JinnZ2"
+}

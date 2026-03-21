@@ -1,0 +1,91 @@
+{
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$id": "packet_spec.schema.json",
+    "title": "LoRa Packet Specification",
+    "description": "Schema for BioMachine LoRa sensor mesh network packet definitions",
+    "type": "object",
+    "required": ["protocol", "frequency_mhz", "packet_format", "packet_types"],
+    "properties": {
+        "protocol": {
+            "type": "string",
+            "description": "Protocol identifier and version"
+        },
+        "description": {
+            "type": "string"
+        },
+        "frequency_mhz": {
+            "type": "number",
+            "minimum": 100,
+            "maximum": 1000
+        },
+        "spreading_factor": {
+            "type": "integer",
+            "minimum": 6,
+            "maximum": 12
+        },
+        "bandwidth_khz": {
+            "type": "number"
+        },
+        "coding_rate": {
+            "type": "string"
+        },
+        "max_payload_bytes": {
+            "type": "integer",
+            "minimum": 1
+        },
+        "packet_format": {
+            "type": "object",
+            "required": ["header", "payload"],
+            "properties": {
+                "header": {
+                    "type": "object",
+                    "additionalProperties": {
+                        "type": "object",
+                        "properties": {
+                            "type": {"type": "string"},
+                            "offset": {"type": "integer"},
+                            "description": {"type": "string"}
+                        }
+                    }
+                },
+                "payload": {
+                    "type": "object",
+                    "properties": {
+                        "offset": {"type": "integer"},
+                        "max_length": {"type": "integer"},
+                        "encoding": {"type": "string"}
+                    }
+                },
+                "checksum": {
+                    "type": "object",
+                    "properties": {
+                        "type": {"type": "string"},
+                        "offset": {"type": "integer"}
+                    }
+                }
+            }
+        },
+        "packet_types": {
+            "type": "object",
+            "additionalProperties": {
+                "type": "object",
+                "required": ["name"],
+                "properties": {
+                    "name": {"type": "string"},
+                    "glyph": {"type": "string"},
+                    "description": {"type": "string"}
+                }
+            }
+        },
+        "fallback_modes": {
+            "type": "object",
+            "additionalProperties": {
+                "type": "object",
+                "properties": {
+                    "description": {"type": "string"},
+                    "glyph": {"type": "string"}
+                }
+            }
+        }
+    }
+}

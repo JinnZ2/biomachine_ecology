@@ -1,1 +1,37 @@
-
+glyph,name,category,source,key_properties,module
+♻️🛢️,HDPE (recycled),polymer,Bottles / drums / containers,Tough; chemical resistant; melts 180-220C,biofab_cell
+♻️🧴,PETG (recycled),polymer,Bottles / packaging,Clear; impact resistant; melts 220-250C,biofab_cell
+♻️📦,PP (recycled),polymer,Containers / caps,Flexible; fatigue resistant; melts 200-240C,biofab_cell
+🌿🧵,PLA (bio-source),polymer,Corn starch filament,Biodegradable; low temp; brittle,biofab_cell
+🔩🏗️,Steel (salvaged),metal,Structural scrap,Strong; heavy; rust-prone,seal_core
+🔩⚡,Copper (salvaged),metal,Wire / motors,Conductive; soft; recyclable,energy_harvester
+🔩🪶,Aluminum (salvaged),metal,Cans / frames,Light; corrosion resistant,seal_core
+♻️🫧,Rubber (salvaged),elastomer,Tires / gaskets / hoses,Elastic; weather resistant,seal_core
+🪟🧵,Glass fiber,composite,Insulation scrap,Stiff reinforcement,seal_core
+🍄🧱,Mycelium,bio-material,Grown from substrate,Biodegradable structural fill,biofab_cell
+🐝🫗,Beeswax,bio-material,Local apiary waste,Sealant; waterproofing,seal_core
+🟤🏺,Clay,mineral,Local soil,Thermal mass; insulation,field_oracle
+🧵📏↔️,Seal flex,signal,—,Seal flexion detected,seal_core
+☀️🛡️,UV resistant,modifier,—,Material withstands UV,materials_glyph_bank
+☀️⚠️,UV vulnerable,modifier,—,Material degrades under UV,materials_glyph_bank
+🧂🛡️,Salt tolerant,modifier,—,Survives marine environments,materials_glyph_bank
+💧🛡️,Waterproof,modifier,—,Impermeable to water,materials_glyph_bank
+🔥🛡️,Heat tolerant,modifier,—,Stable above 100C,materials_glyph_bank
+🌱💀,Biodegradable,modifier,—,Decomposes in soil,materials_glyph_bank
+🔁🤝,Regeneration triggered,signal,—,Repair/regen sequence active,regenerator
+📳📈,Vibration threshold exceeded,signal,—,Vibration alert,seal_core
+🌑🔸,Grief signal,emotion,—,Loss / seal failure detected,vault
+🛡️,Presence signal,emotion,—,Successful repair / stability,vault
+📡📊,Telemetry,signal,—,Sensor data packet,field_oracle
+🚨🔔,Alert,signal,—,Threshold breach,field_oracle
+💓,Heartbeat,signal,—,Node alive ping,field_oracle
+🍂🔬,Rot / residue,signal,—,Organic decay detected,field_oracle
+🦠🍂,Mold detected,signal,—,Mold presence confirmed,field_oracle
+🌍🔬,Soil map,data,—,Soil state survey,field_oracle
+🤚🔄,Touch loop,interface,—,Human touch interaction,symbiotic_input
+👆,Single tap,gesture,—,Status query,symbiotic_input
+👆👆,Double tap,gesture,—,Trigger regeneration,symbiotic_input
+🤚⏳,Long press,gesture,—,Enter diagnostic mode,symbiotic_input
+🌬️,Breath proximity,gesture,—,Presence acknowledge,symbiotic_input
+💡📟,Morse LED,fallback,—,LED-based Morse code,field_oracle
+🔊📟,Acoustic Morse,fallback,—,Buzzer-based signaling,field_oracle

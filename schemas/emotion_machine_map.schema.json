@@ -1,0 +1,28 @@
+{
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$id": "emotion_machine_map.schema.json",
+    "title": "Emotion-Machine Event Map",
+    "description": "Schema for mapping emotional states to machine events in the BioMachine ecology",
+    "type": "object",
+    "properties": {
+        "$schema": {"type": "string"}
+    },
+    "additionalProperties": {
+        "type": "object",
+        "required": ["machine_event", "signal", "response"],
+        "properties": {
+            "machine_event": {
+                "type": "string",
+                "description": "The machine event triggered by or associated with this emotion"
+            },
+            "signal": {
+                "type": "string",
+                "description": "Glyph encoding for the emotional signal"
+            },
+            "response": {
+                "type": "string",
+                "description": "System response action"
+            }
+        }
+    }
+}

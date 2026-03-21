@@ -1,1 +1,25 @@
-
+{
+    "$schema": "../../schemas/telemetry.schema.json",
+    "node_id": 12,
+    "timestamp": "2025-09-18T14:30:00Z",
+    "glyph": "📡📊",
+    "seal_id": "seal_core_gasket_01",
+    "readings": {
+        "temperature_c": 34.5,
+        "humidity_pct": 72.0,
+        "pressure_kpa": 101.3,
+        "vibration_g": 0.45,
+        "uv_index": 6.2,
+        "salt_conductivity_ms": 2.8
+    },
+    "seal_metrics": {
+        "compression_pct": 18.5,
+        "seal_stress_index": 0.42,
+        "estimated_cycles_remaining": 12000,
+        "last_regen_timestamp": null
+    },
+    "alerts": [],
+    "battery_v": 3.62,
+    "rssi_dbm": -78,
+    "snr_db": 9.5
+}

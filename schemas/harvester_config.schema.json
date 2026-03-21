@@ -1,0 +1,59 @@
+{
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$id": "harvester_config.schema.json",
+    "title": "Energy Harvester Configuration",
+    "description": "Schema for BioMachine energy harvester station configurations",
+    "type": "object",
+    "required": ["station_id", "harvesters", "power_bus"],
+    "properties": {
+        "description": {
+            "type": "string"
+        },
+        "glyph": {
+            "type": "string"
+        },
+        "station_id": {
+            "type": "string"
+        },
+        "harvesters": {
+            "type": "array",
+            "items": {
+                "type": "object",
+                "required": ["type", "glyph"],
+                "properties": {
+                    "type": {
+                        "type": "string",
+                        "enum": ["wind_ribbon", "peltier_teg", "vibration"]
+                    },
+                    "glyph": {"type": "string"},
+                    "ribbon_length_mm": {"type": "number", "minimum": 0},
+                    "piezo_diameter_mm": {"type": "number", "minimum": 0},
+                    "min_wind_speed_ms": {"type": "number", "minimum": 0},
+                    "module_size_mm": {"type": "number", "minimum": 0},
+                    "min_delta_t_c": {"type": "number", "minimum": 0},
+                    "boost_converter": {"type": "string"},
+                    "cantilever_length_mm": {"type": "number", "minimum": 0},
+                    "tip_mass_g": {"type": "number", "minimum": 0},
+                    "resonant_freq_hz": {"type": "number", "minimum": 0},
+                    "estimated_power_mw": {"type": "number", "minimum": 0}
+                }
+            }
+        },
+        "power_bus": {
+            "type": "object",
+            "required": ["supercap_f", "ldo_output_v"],
+            "properties": {
+                "supercap_f": {"type": "number", "minimum": 0},
+                "supercap_v": {"type": "number", "minimum": 0},
+                "ldo_output_v": {"type": "number", "minimum": 0},
+                "undervoltage_lockout_v": {"type": "number", "minimum": 0},
+                "wake_threshold_v": {"type": "number", "minimum": 0}
+            }
+        },
+        "connected_node_id": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 255
+        }
+    }
+}

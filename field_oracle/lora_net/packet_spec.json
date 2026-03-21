@@ -1,1 +1,45 @@
-
+{
+    "$schema": "../../schemas/packet_spec.schema.json",
+    "protocol": "biomachine_lora_v1",
+    "description": "LoRa packet specification for BioMachine sensor mesh network",
+    "frequency_mhz": 868.0,
+    "spreading_factor": 7,
+    "bandwidth_khz": 125,
+    "coding_rate": "4/5",
+    "max_payload_bytes": 64,
+    "packet_format": {
+        "header": {
+            "node_id": {"type": "uint8", "offset": 0, "description": "Sender node ID (0-255)"},
+            "packet_type": {"type": "uint8", "offset": 1, "description": "Message type code"},
+            "sequence": {"type": "uint16", "offset": 2, "description": "Packet sequence number"}
+        },
+        "payload": {
+            "offset": 4,
+            "max_length": 58,
+            "encoding": "msgpack"
+        },
+        "checksum": {
+            "type": "crc16",
+            "offset": -2
+        }
+    },
+    "packet_types": {
+        "0x01": {"name": "telemetry", "glyph": "📡📊", "description": "Sensor telemetry data"},
+        "0x02": {"name": "alert", "glyph": "🚨🔔", "description": "Threshold breach alert"},
+        "0x03": {"name": "heartbeat", "glyph": "💓", "description": "Node alive ping"},
+        "0x04": {"name": "regen_request", "glyph": "🔁🤝", "description": "Regeneration request"},
+        "0x05": {"name": "emotion_signal", "glyph": "🌑🔸", "description": "Emotional state broadcast"}
+    },
+    "fallback_modes": {
+        "morse_led": {
+            "description": "Fallback to Morse code via LED blink when LoRa is unavailable",
+            "glyph": "💡📟",
+            "wpm": 12
+        },
+        "acoustic": {
+            "description": "Buzzer-based Morse for audible range signaling",
+            "glyph": "🔊📟",
+            "frequency_hz": 800
+        }
+    }
+}

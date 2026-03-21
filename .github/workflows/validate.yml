@@ -1,0 +1,79 @@
+name: Validate
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  validate-json:
+    name: Validate JSON files
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install dependencies
+        run: pip install jsonschema
+
+      - name: Validate JSON syntax
+        run: |
+          exit_code=0
+          for f in $(find . -name '*.json' -not -path './.git/*'); do
+            if ! python -m json.tool "$f" > /dev/null 2>&1; then
+              echo "FAIL: $f"
+              exit_code=1
+            else
+              echo "OK:   $f"
+            fi
+          done
+          exit $exit_code
+
+      - name: Validate schemas
+        run: python -m pytest tests/ -v
+        continue-on-error: true
+
+  validate-python:
+    name: Validate Python
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Check Python syntax
+        run: python -m py_compile regenerator/STL_generator.py
+
+      - name: Run STL generator smoke test
+        run: |
+          python regenerator/STL_generator.py --inner-radius 5 --outer-radius 10 -o /tmp/test.stl
+          test -f /tmp/test.stl && echo "STL generated successfully"
+
+  validate-csv:
+    name: Validate CSV
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Check CSV structure
+        run: |
+          python -c "
+          import csv, sys
+          with open('materials_glyph_bank/glyph-index.csv') as f:
+              reader = csv.DictReader(f)
+              rows = list(reader)
+              required = {'glyph', 'name', 'category'}
+              missing = required - set(reader.fieldnames)
+              if missing:
+                  print(f'Missing columns: {missing}')
+                  sys.exit(1)
+              print(f'CSV valid: {len(rows)} entries, columns: {reader.fieldnames}')
+          "

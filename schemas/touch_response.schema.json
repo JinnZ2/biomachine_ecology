@@ -1,0 +1,64 @@
+{
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$id": "touch_response.schema.json",
+    "title": "Touch Response Loop",
+    "description": "Schema for BioMachine symbiotic input touch response protocols",
+    "type": "object",
+    "required": ["description", "sensors", "gestures"],
+    "properties": {
+        "description": {
+            "type": "string"
+        },
+        "glyph": {
+            "type": "string"
+        },
+        "sensors": {
+            "type": "array",
+            "items": {
+                "type": "object",
+                "required": ["type", "location"],
+                "properties": {
+                    "type": {"type": "string"},
+                    "location": {"type": "string"},
+                    "sensitivity": {"type": "string", "enum": ["low", "medium", "high"]},
+                    "glyph": {"type": "string"}
+                }
+            }
+        },
+        "gestures": {
+            "type": "array",
+            "items": {
+                "type": "object",
+                "required": ["name", "glyph", "action", "response"],
+                "properties": {
+                    "name": {"type": "string"},
+                    "glyph": {"type": "string"},
+                    "duration_ms": {
+                        "type": "object",
+                        "properties": {
+                            "min": {"type": "number", "minimum": 0},
+                            "max": {"type": "number", "minimum": 0}
+                        }
+                    },
+                    "gap_ms": {
+                        "type": "object",
+                        "properties": {
+                            "min": {"type": "number", "minimum": 0},
+                            "max": {"type": "number", "minimum": 0}
+                        }
+                    },
+                    "sensor": {"type": "string"},
+                    "threshold_delta_c": {"type": "number"},
+                    "action": {"type": "string"},
+                    "response": {"type": "string"}
+                }
+            }
+        },
+        "response_modes": {
+            "type": "object",
+            "additionalProperties": {
+                "type": "object"
+            }
+        }
+    }
+}

@@ -1,0 +1,46 @@
+{
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$id": "soil_map.schema.json",
+    "title": "Soil Map",
+    "description": "Schema for field oracle soil state mapping data",
+    "type": "object",
+    "required": ["site_id", "timestamp", "zones"],
+    "properties": {
+        "site_id": {
+            "type": "string",
+            "description": "Unique identifier for the survey site"
+        },
+        "timestamp": {
+            "type": "string",
+            "format": "date-time"
+        },
+        "glyph": {
+            "type": "string"
+        },
+        "zones": {
+            "type": "array",
+            "items": {
+                "type": "object",
+                "required": ["zone_id", "soil_type", "moisture_pct"],
+                "properties": {
+                    "zone_id": {"type": "string"},
+                    "position": {
+                        "type": "object",
+                        "properties": {
+                            "lat": {"type": "number"},
+                            "lon": {"type": "number"}
+                        }
+                    },
+                    "soil_type": {"type": "string"},
+                    "moisture_pct": {"type": "number", "minimum": 0, "maximum": 100},
+                    "ph": {"type": "number", "minimum": 0, "maximum": 14},
+                    "organic_matter_pct": {"type": "number", "minimum": 0},
+                    "decay_index": {"type": "number", "minimum": 0, "maximum": 1},
+                    "root_density": {"type": "string", "enum": ["none", "sparse", "medium", "dense"]},
+                    "mold_detected": {"type": "boolean"},
+                    "glyph": {"type": "string"}
+                }
+            }
+        }
+    }
+}

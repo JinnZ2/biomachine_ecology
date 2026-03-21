@@ -1,0 +1,32 @@
+{
+    "$schema": "../schemas/harvester_config.schema.json",
+    "description": "Configuration for a wind ribbon + Peltier combined harvester station",
+    "glyph": "⚡🌀",
+    "station_id": "harvest_01",
+    "harvesters": [
+        {
+            "type": "wind_ribbon",
+            "glyph": "🌬️⚡",
+            "ribbon_length_mm": 450,
+            "piezo_diameter_mm": 27,
+            "min_wind_speed_ms": 2.0,
+            "estimated_power_mw": 3.0
+        },
+        {
+            "type": "peltier_teg",
+            "glyph": "🔥⚡",
+            "module_size_mm": 40,
+            "min_delta_t_c": 10,
+            "boost_converter": "MT3608",
+            "estimated_power_mw": 8.0
+        }
+    ],
+    "power_bus": {
+        "supercap_f": 10.0,
+        "supercap_v": 5.5,
+        "ldo_output_v": 3.3,
+        "undervoltage_lockout_v": 2.8,
+        "wake_threshold_v": 3.0
+    },
+    "connected_node_id": 12
+}

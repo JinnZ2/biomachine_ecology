@@ -1,0 +1,72 @@
+{
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$id": "seal_genome.schema.json",
+    "title": "Seal Genome Template",
+    "description": "Schema for BioMachine seal gasket genome definitions",
+    "type": "object",
+    "required": ["name", "geometry", "material"],
+    "properties": {
+        "name": {
+            "type": "string",
+            "description": "Identifier for this seal genome"
+        },
+        "version": {
+            "type": "string"
+        },
+        "glyph": {
+            "type": "string",
+            "description": "Symbolic glyph for this seal type"
+        },
+        "description": {
+            "type": "string"
+        },
+        "geometry": {
+            "type": "object",
+            "required": ["inner_radius_mm", "outer_radius_mm", "thickness_mm"],
+            "properties": {
+                "inner_radius_mm": {"type": "number", "minimum": 0},
+                "outer_radius_mm": {"type": "number", "minimum": 0},
+                "thickness_mm": {"type": "number", "minimum": 0},
+                "segments": {"type": "integer", "minimum": 3, "default": 36}
+            }
+        },
+        "material": {
+            "type": "object",
+            "required": ["type", "glyph"],
+            "properties": {
+                "type": {"type": "string"},
+                "glyph": {"type": "string"},
+                "shore_hardness": {"type": "string"},
+                "uv_resistance": {"type": "string", "enum": ["none", "low", "medium", "high"]},
+                "max_temp_c": {"type": "number"}
+            }
+        },
+        "tolerances": {
+            "type": "object",
+            "properties": {
+                "compression_set_max_pct": {"type": "number", "minimum": 0, "maximum": 100},
+                "elongation_min_pct": {"type": "number", "minimum": 0},
+                "seal_stress_threshold": {"type": "number", "minimum": 0, "maximum": 1}
+            }
+        },
+        "environment": {
+            "type": "object",
+            "properties": {
+                "salt_exposure": {"type": "boolean"},
+                "uv_exposure": {"type": "boolean"},
+                "vibration_class": {"type": "string", "enum": ["none", "low", "moderate", "high", "extreme"]},
+                "moisture": {"type": "string"}
+            }
+        },
+        "regeneration": {
+            "type": "object",
+            "properties": {
+                "auto_regen_on_stress": {"type": "boolean"},
+                "regen_glyph": {"type": "string"},
+                "fallback_material": {"type": "string"}
+            }
+        },
+        "created": {"type": "string", "format": "date-time"},
+        "author": {"type": "string"}
+    }
+}

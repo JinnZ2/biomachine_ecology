@@ -1,1 +1,18 @@
+LoRa Network Initialization Scripts
+=====================================
 
+This directory will contain initialization scripts for the BioMachine
+LoRa sensor mesh network.
+
+Planned scripts:
+  - init_node.py       Configure a new sensor node (set ID, frequency, keys)
+  - scan_network.py    Discover active nodes and report RSSI/SNR
+  - provision.sh       Flash firmware and set initial parameters
+  - test_link.py       Send test packets between two nodes
+
+Prerequisites:
+  - Python 3.8+ with pyserial
+  - USB-to-UART adapter for node serial connection
+  - LoRa module connected via SPI to MCU
+
+See packet_spec.json for the protocol specification.

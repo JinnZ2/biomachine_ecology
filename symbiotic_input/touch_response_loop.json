@@ -1,1 +1,56 @@
-
+{
+    "$schema": "../schemas/touch_response.schema.json",
+    "description": "Touch-based human interface protocol for BioMachine symbiotic input",
+    "glyph": "🤚🔄",
+    "sensors": [
+        {
+            "type": "capacitive_touch",
+            "location": "outer_shell",
+            "sensitivity": "medium",
+            "glyph": "🤚⚡"
+        },
+        {
+            "type": "pressure_pad",
+            "location": "palm_rest",
+            "sensitivity": "high",
+            "glyph": "🤚📏"
+        }
+    ],
+    "gestures": [
+        {
+            "name": "single_tap",
+            "glyph": "👆",
+            "duration_ms": {"min": 50, "max": 300},
+            "action": "status_query",
+            "response": "LED blink pattern showing current system state"
+        },
+        {
+            "name": "long_press",
+            "glyph": "🤚⏳",
+            "duration_ms": {"min": 2000, "max": 5000},
+            "action": "enter_diagnostic_mode",
+            "response": "Slow pulse LED + telemetry dump via LoRa"
+        },
+        {
+            "name": "double_tap",
+            "glyph": "👆👆",
+            "duration_ms": {"min": 50, "max": 200},
+            "gap_ms": {"min": 100, "max": 400},
+            "action": "trigger_regeneration",
+            "response": "Regeneration sequence initiated, confirmation blink"
+        },
+        {
+            "name": "breath_proximity",
+            "glyph": "🌬️",
+            "sensor": "thermistor_proximity",
+            "threshold_delta_c": 2.0,
+            "action": "presence_acknowledge",
+            "response": "Warm LED glow, log presence event"
+        }
+    ],
+    "response_modes": {
+        "led": {"pin": "D5", "type": "ws2812b", "count": 4},
+        "haptic": {"pin": "D6", "type": "erm_motor", "intensity_range": [0, 255]},
+        "acoustic": {"pin": "D7", "type": "piezo", "frequency_range_hz": [200, 2000]}
+    }
+}
