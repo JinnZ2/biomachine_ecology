@@ -1,0 +1,49 @@
+{
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$id": "diagnostic_report.schema.json",
+    "title": "Diagnostic Report",
+    "description": "Schema for BioMachine boot-time self-test diagnostic reports",
+    "type": "object",
+    "required": ["glyph", "timestamp", "overall", "checks"],
+    "properties": {
+        "$schema": {
+            "type": "string"
+        },
+        "glyph": {
+            "type": "string"
+        },
+        "timestamp": {
+            "type": "string",
+            "format": "date-time"
+        },
+        "overall": {
+            "type": "string",
+            "enum": ["pass", "warn", "fail"]
+        },
+        "checks": {
+            "type": "array",
+            "items": {
+                "type": "object",
+                "required": ["check", "status"],
+                "properties": {
+                    "check": {
+                        "type": "string",
+                        "description": "Name of the diagnostic check"
+                    },
+                    "status": {
+                        "type": "string",
+                        "enum": ["pass", "warn", "fail"]
+                    },
+                    "file": {
+                        "type": "string",
+                        "description": "File that was checked, if applicable"
+                    },
+                    "detail": {
+                        "type": "string",
+                        "description": "Additional detail or error message"
+                    }
+                }
+            }
+        }
+    }
+}

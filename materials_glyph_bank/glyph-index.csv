@@ -35,3 +35,5 @@ glyph,name,category,source,key_properties,module
 🌬️,Breath proximity,gesture,—,Presence acknowledge,symbiotic_input
 💡📟,Morse LED,fallback,—,LED-based Morse code,field_oracle
 🔊📟,Acoustic Morse,fallback,—,Buzzer-based signaling,field_oracle
+🔧🩺,Boot diagnostic,signal,—,Self-test report,diagnostics
+📡💾,Offline queue,signal,—,Telemetry queued for later TX,diagnostics

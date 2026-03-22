@@ -16,6 +16,7 @@ biomachine_ecology/
 │   └── lora_net/           # Edge sensor mesh (LoRa + fallback Morse/LED)
 │       └── scripts/        # Network initialization scripts
 ├── biofab_cell/            # Low-tech fabrication from recycled plastic & rubber
+├── diagnostics/            # Boot self-test routines and offline telemetry queue
 ├── regenerator/            # STL autogeneration and self-repair scripting
 ├── energy_harvester/       # Wind ribbon, thermochemical, vibration harvesters
 ├── materials_glyph_bank/   # Scrap-to-glyph material mappings and index
@@ -25,6 +26,7 @@ biomachine_ecology/
 ├── schemas/                # JSON Schema definitions for validation
 ├── tests/                  # Pytest test suite
 ├── .github/workflows/      # CI pipeline (JSON/Python/CSV validation)
+├── QUICKSTART.md           # Clone-to-seal-in-two-minutes guide
 ├── README.md               # Project overview with architecture diagram
 ├── CONTRIBUTING.md         # Contribution guidelines
 ├── CO_CREATION.md          # Co-creation ethics and attribution
@@ -50,6 +52,14 @@ python regenerator/STL_generator.py --genome seal_core/SEAL_GENOME_TEMPLATE.json
 # Run the auto-tune monitoring loop (watches telemetry, regenerates on stress)
 bash regenerator/AutoTuneLoop.sh --once --telemetry-dir seal_core/telemetry
 
+# Run boot-time diagnostics
+python -m diagnostics.self_test
+
+# Manage offline telemetry queue
+python -m diagnostics.offline_queue enqueue seal_core/telemetry/LoRaSealNode_telemetry_sample.json
+python -m diagnostics.offline_queue status
+python -m diagnostics.offline_queue flush
+
 # Run tests (JSON schema validation)
 python -m pytest tests/ -v
 ```
@@ -68,6 +78,7 @@ All JSON data files reference a `$schema` field pointing to the `schemas/` direc
 | `touch_response.schema.json` | Touch input protocols | `symbiotic_input/touch_response_loop.json` |
 | `packet_spec.schema.json` | LoRa packet definitions | `field_oracle/lora_net/packet_spec.json` |
 | `harvester_config.schema.json` | Energy harvester configs | `energy_harvester/harvester_config_example.json` |
+| `diagnostic_report.schema.json` | Boot diagnostic reports | Output of `diagnostics/self_test.py` |
 
 When adding new JSON data files, include a `$schema` reference and validate with `pytest`.
 
@@ -115,7 +126,9 @@ Each module is independent and loosely coupled. Modules communicate via standard
 - `vault/emotions/emotion_machine_map.json` — Emotion-to-machine-event mappings
 - `vault/emotions/grief.json` — Detailed emotion state definition
 - `symbiotic_input/touch_response_loop.json` — Human touch interaction protocol
-- `materials_glyph_bank/glyph-index.csv` — Canonical glyph registry (35+ entries)
+- `materials_glyph_bank/glyph-index.csv` — Canonical glyph registry (38+ entries)
+- `diagnostics/self_test.py` — Boot-time self-test routines
+- `diagnostics/offline_queue.py` — Offline-first telemetry queue
 
 ## Important Notes for AI Assistants
 

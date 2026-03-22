@@ -16,6 +16,9 @@ Thumbs.db
 .vscode/
 .idea/
 
+# Offline telemetry queue (runtime data)
+diagnostics/queue/
+
 # Environment
 .env
 *.log

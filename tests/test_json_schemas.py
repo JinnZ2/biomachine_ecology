@@ -37,6 +37,7 @@ SCHEMA_MAP = {
     "touch_response": "touch_response.schema.json",
     "packet_spec": "packet_spec.schema.json",
     "harvester_config": "harvester_config.schema.json",
+    "diagnostic_report": "diagnostic_report.schema.json",
 }
 
 
