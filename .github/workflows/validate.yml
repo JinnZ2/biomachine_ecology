@@ -50,7 +50,10 @@ jobs:
           python-version: "3.11"
 
       - name: Check Python syntax
-        run: python -m py_compile regenerator/STL_generator.py
+        run: |
+          python -m py_compile regenerator/STL_generator.py
+          python -m py_compile diagnostics/self_test.py
+          python -m py_compile diagnostics/offline_queue.py
 
       - name: Run STL generator smoke test
         run: |
