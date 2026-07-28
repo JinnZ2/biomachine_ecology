@@ -1,7 +1,7 @@
 [project]
 name = "biomachine-ecology"
 version = "0.1.0"
-description = "Modular, adaptive, scrap-built machines coexisting with environmental decay and biological life"
+description = "Scrap-built, field-repairable machines: seals, sensors, harvesters, and a glyph language for their states"
 readme = "README.md"
 license = {text = "MIT"}
 requires-python = ">=3.8"
@@ -20,6 +20,9 @@ stl = [
 
 [project.scripts]
 stl-generator = "regenerator.STL_generator:main"
+
+[tool.setuptools]
+packages = ["diagnostics", "regenerator"]
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]

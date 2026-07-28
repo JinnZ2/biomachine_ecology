@@ -7,76 +7,38 @@ on:
     branches: [main]
 
 jobs:
-  validate-json:
-    name: Validate JSON files
+  validate:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
 
-      - name: Set up Python
-        uses: actions/setup-python@v5
+      - uses: actions/setup-python@v5
         with:
           python-version: "3.11"
 
-      - name: Install dependencies
-        run: pip install jsonschema
+      - name: Install
+        run: pip install -e ".[dev]"
 
-      - name: Validate JSON syntax
-        run: |
-          exit_code=0
-          for f in $(find . -name '*.json' -not -path './.git/*'); do
-            if ! python -m json.tool "$f" > /dev/null 2>&1; then
-              echo "FAIL: $f"
-              exit_code=1
-            else
-              echo "OK:   $f"
-            fi
-          done
-          exit $exit_code
-
-      - name: Validate schemas
+      - name: Validate JSON syntax and schemas
         run: python -m pytest tests/ -v
-        continue-on-error: true
-
-  validate-python:
-    name: Validate Python
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-
-      - name: Set up Python
-        uses: actions/setup-python@v5
-        with:
-          python-version: "3.11"
 
       - name: Check Python syntax
-        run: |
-          python -m py_compile regenerator/STL_generator.py
-          python -m py_compile diagnostics/self_test.py
-          python -m py_compile diagnostics/offline_queue.py
+        run: python -m compileall -q diagnostics regenerator tests
 
-      - name: Run STL generator smoke test
+      - name: Generate a test STL
         run: |
           python regenerator/STL_generator.py --inner-radius 5 --outer-radius 10 -o /tmp/test.stl
-          test -f /tmp/test.stl && echo "STL generated successfully"
+          test -s /tmp/test.stl
 
-  validate-csv:
-    name: Validate CSV
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-
-      - name: Check CSV structure
+      - name: Check glyph index columns
         run: |
-          python -c "
+          python - <<'EOF'
           import csv, sys
-          with open('materials_glyph_bank/glyph-index.csv') as f:
+          with open("materials_glyph_bank/glyph-index.csv") as f:
               reader = csv.DictReader(f)
               rows = list(reader)
-              required = {'glyph', 'name', 'category'}
-              missing = required - set(reader.fieldnames)
-              if missing:
-                  print(f'Missing columns: {missing}')
-                  sys.exit(1)
-              print(f'CSV valid: {len(rows)} entries, columns: {reader.fieldnames}')
-          "
+          missing = {"glyph", "name", "category"} - set(reader.fieldnames or [])
+          if missing:
+              sys.exit(f"Missing columns: {missing}")
+          print(f"{len(rows)} glyphs registered")
+          EOF

@@ -2,7 +2,7 @@
 
 ## Project Overview
 
-BioMachine Ecology is a modular, living system of adaptive, field-hardened, scrap-built machines designed to coexist with environmental decay, waste, and biological life. Created by JinnZ2 (September 2025), the project treats each component as repairable, regenerable, and interpretable using a symbolic glyph language.
+BioMachine Ecology is a set of scrap-built machines meant to run outdoors and be repaired in the field: seals, sensors, energy harvesters, fabrication modules, and soil oracles. Created by JinnZ2 (September 2025). Every component state is written in a symbolic glyph language.
 
 All works are gifted freely under the MIT License without proprietary claim.
 
@@ -14,7 +14,7 @@ biomachine_ecology/
 │   └── telemetry/          # LoRa seal node telemetry samples
 ├── field_oracle/           # Environmental sensing — mold, decay, root, soil logic
 │   └── lora_net/           # Edge sensor mesh (LoRa + fallback Morse/LED)
-│       └── scripts/        # Network initialization scripts
+│       └── scripts/        # Node provisioning scripts (planned, not written yet)
 ├── biofab_cell/            # Low-tech fabrication from recycled plastic & rubber
 ├── diagnostics/            # Boot self-test routines and offline telemetry queue
 ├── regenerator/            # STL autogeneration and self-repair scripting
@@ -84,12 +84,13 @@ When adding new JSON data files, include a `$schema` reference and validate with
 
 ## CI Pipeline
 
-GitHub Actions (`.github/workflows/validate.yml`) runs on push/PR to `main`:
-- Validates all JSON files for correct syntax
-- Runs JSON schema validation via pytest
-- Checks Python syntax (`py_compile`)
+GitHub Actions (`.github/workflows/validate.yml`) runs on push/PR to `main`. A single job installs the package, then:
+- Runs pytest — JSON syntax plus schema validation for every data file
+- Compiles all Python (`compileall`)
 - Smoke-tests the STL generator
-- Validates CSV structure of `glyph-index.csv`
+- Checks the columns of `glyph-index.csv`
+
+Every step is required; nothing is allowed to fail silently.
 
 ## Conventions
 

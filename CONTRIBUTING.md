@@ -36,20 +36,7 @@ Follow the two-part pattern: **source indicator** + **form/property indicator**.
 
 ## Development Setup
 
-```bash
-# Clone the repository
-git clone https://github.com/JinnZ2/biomachine_ecology.git
-cd biomachine_ecology
-
-# Install dev dependencies (optional, for schema validation)
-pip install -e ".[dev]"
-
-# Run tests
-python -m pytest tests/
-
-# Generate a test STL
-python regenerator/STL_generator.py --inner-radius 10 --outer-radius 20 -o test.stl
-```
+See `QUICKSTART.md`.
 
 ## Branching
 
