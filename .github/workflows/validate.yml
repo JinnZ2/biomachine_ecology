@@ -54,6 +54,7 @@ jobs:
           python -m py_compile regenerator/STL_generator.py
           python -m py_compile diagnostics/self_test.py
           python -m py_compile diagnostics/offline_queue.py
+          python -m py_compile field_oracle/lora_net/scripts/init_node.py
 
       - name: Run STL generator smoke test
         run: |

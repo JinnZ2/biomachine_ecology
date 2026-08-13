@@ -41,14 +41,20 @@ Follow the two-part pattern: **source indicator** + **form/property indicator**.
 git clone https://github.com/JinnZ2/biomachine_ecology.git
 cd biomachine_ecology
 
-# Install dev dependencies (optional, for schema validation)
+# Install dev dependencies
 pip install -e ".[dev]"
 
-# Run tests
-python -m pytest tests/
+# Run boot diagnostics to verify system health
+python -m diagnostics.self_test
 
-# Generate a test STL
-python regenerator/STL_generator.py --inner-radius 10 --outer-radius 20 -o test.stl
+# Run the full test suite
+python -m pytest tests/ -v
+
+# Generate a test STL from the genome template
+python regenerator/STL_generator.py --genome seal_core/SEAL_GENOME_TEMPLATE.json -o test.stl
+
+# Initialize a LoRa node config
+python field_oracle/lora_net/scripts/init_node.py --node-id 12 --seal-id seal_core_gasket_01
 ```
 
 ## Branching
@@ -75,9 +81,20 @@ python regenerator/STL_generator.py --inner-radius 10 --outer-radius 20 -o test.
 - JSON: 4-space indentation, include `$schema` references
 - Markdown: One sentence per line for readable diffs
 
+## Validation Checklist
+
+Before pushing, verify:
+
+1. `python -m diagnostics.self_test` — all checks pass
+2. `python -m pytest tests/ -v` — all tests pass (JSON syntax, schema validation, diagnostics, integration)
+3. New JSON files have `$schema` references
+4. New glyphs are registered in `glyph-index.csv`
+5. New Python modules compile: `python -m py_compile <file>`
+
 ## What Not to Do
 
 - Don't add PVC processing — toxic fumes (see `biofab_cell/extruder_rebuild_notes.md`)
 - Don't add proprietary dependencies
 - Don't remove or alter existing glyph definitions without discussion
 - Don't commit generated STL files (add them to `.gitignore`)
+- Don't commit the offline queue directory (`diagnostics/queue/`) — it's runtime data
