@@ -1,4 +1,4 @@
-# 🤝 CO_CREATION.md
+# Co-Creation
 
 This repository is not the work of a single author.
 

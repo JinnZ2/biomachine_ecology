@@ -8,11 +8,15 @@
 
 set -euo pipefail
 
-INTERVAL=60
-TELEMETRY_DIR="../seal_core/telemetry"
-GENOME_FILE="../seal_core/SEAL_GENOME_TEMPLATE.json"
-OUTPUT_DIR="./output"
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+REPO_ROOT="$(dirname "$SCRIPT_DIR")"
+
+# Defaults resolve against the repo, not the current directory, so the loop
+# runs the same from anywhere.
+INTERVAL=60
+TELEMETRY_DIR="$REPO_ROOT/seal_core/telemetry"
+GENOME_FILE="$REPO_ROOT/seal_core/SEAL_GENOME_TEMPLATE.json"
+OUTPUT_DIR="./output"
 
 usage() {
     echo "Usage: $0 [--interval SECONDS] [--telemetry-dir DIR] [--genome FILE]"
@@ -60,13 +64,15 @@ check_telemetry() {
 import json, sys
 with open('$latest') as f:
     data = json.load(f)
-stress = data.get('seal_stress_index', 0)
+# Nested under seal_metrics in the telemetry schema; tolerate flat files too.
+metrics = data.get('seal_metrics', {})
+stress = metrics.get('seal_stress_index', data.get('seal_stress_index', 0))
 if stress > 0.7:
     print(f'ALERT: Seal stress index {stress:.2f} exceeds threshold 0.70')
     sys.exit(2)
 else:
     print(f'OK: Seal stress index {stress:.2f} within normal range')
-" 2>/dev/null
+"
         return $?
     else
         echo "Warning: python3 not available, skipping telemetry analysis"

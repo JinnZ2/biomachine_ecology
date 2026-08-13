@@ -47,8 +47,11 @@ Watch telemetry and auto-regenerate when seal stress exceeds threshold:
 bash regenerator/AutoTuneLoop.sh --once --telemetry-dir seal_core/telemetry
 ```
 
-The loop reads `seal_stress_index` from telemetry JSON.
-If it exceeds 0.70, a new STL is regenerated automatically.
+The loop reads `seal_metrics.seal_stress_index` from the newest telemetry JSON in
+the directory.
+If it exceeds 0.70, a new STL is regenerated into `./output`.
+To watch it fire, point it at a directory holding
+`seal_core/telemetry/LoRaSealNode_stressed_sample.json`, which reads 0.85.
 
 ## 5. Validate everything
 
