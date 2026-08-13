@@ -1,0 +1,88 @@
+{
+    "fieldlink": {
+        "version": "1.2",
+        "updated": "2026-03-24T00:00:00Z",
+        "role": ["machines", "telemetry", "emotions", "glyphs"],
+
+        "sources": [
+            {
+                "name": "rosetta-shape-core",
+                "repo": "https://github.com/JinnZ2/Rosetta-Shape-Core",
+                "ref": "main",
+                "paths": [
+                    "shapes/*.json",
+                    "bridges/rosetta-bridges.json",
+                    "schema/shape.schema.json",
+                    "ontology/_vocab.json",
+                    "ontology/capabilities.json"
+                ],
+                "mounts": [
+                    { "remote": "shapes/dodecahedron.json", "as": "fieldlink_atlas/rosetta/shapes/dodecahedron.json" },
+                    { "remote": "shapes/icosahedron.json", "as": "fieldlink_atlas/rosetta/shapes/icosahedron.json" },
+                    { "remote": "shapes/octahedron.json", "as": "fieldlink_atlas/rosetta/shapes/octahedron.json" },
+                    { "remote": "shapes/tetrahedron.json", "as": "fieldlink_atlas/rosetta/shapes/tetrahedron.json" },
+                    { "remote": "shapes/cube.json", "as": "fieldlink_atlas/rosetta/shapes/cube.json" },
+                    { "remote": "bridges/rosetta-bridges.json", "as": "fieldlink_atlas/rosetta/bridges.json" },
+                    { "remote": "schema/shape.schema.json", "as": "fieldlink_atlas/rosetta/shape.schema.json" },
+                    { "remote": "ontology/_vocab.json", "as": "fieldlink_atlas/rosetta/vocab.json" },
+                    { "remote": "ontology/capabilities.json", "as": "fieldlink_atlas/rosetta/capabilities.json" }
+                ],
+                "consent": { "license": "MIT", "share_ok": true }
+            }
+        ],
+
+        "exports": [
+            {
+                "name": "glyphs",
+                "description": "Symbolic glyph registry (scrap-to-glyph mappings)",
+                "paths": ["materials_glyph_bank/glyph-index.csv"],
+                "format": "csv"
+            },
+            {
+                "name": "emotions",
+                "description": "Emotion definitions and machine-event mappings",
+                "paths": [
+                    "vault/emotions/grief.json",
+                    "vault/emotions/emotion_machine_map.json"
+                ],
+                "format": "json"
+            },
+            {
+                "name": "telemetry",
+                "description": "LoRa seal node telemetry samples",
+                "paths": ["seal_core/telemetry/*.json"],
+                "format": "json"
+            },
+            {
+                "name": "seal-genome",
+                "description": "Seal design parameters and adaptive genome",
+                "paths": ["seal_core/SEAL_GENOME_TEMPLATE.json"],
+                "format": "json"
+            },
+            {
+                "name": "schemas",
+                "description": "JSON Schema definitions for all data types",
+                "paths": ["schemas/*.json"],
+                "format": "json"
+            }
+        ],
+
+        "local_manifests": [
+            "seal_core/**/*.json",
+            "vault/emotions/**/*.json",
+            "field_oracle/**/*.json",
+            "materials_glyph_bank/glyph-index.csv",
+            "schemas/**/*.json"
+        ],
+
+        "merge": {
+            "order": ["local", "rosetta-shape-core"],
+            "strategy": "deep-merge"
+        },
+
+        "offline": false,
+        "cache_dir": ".fieldlink",
+        "integrity": { "enabled": true, "hash": "sha256", "allow_missing": false },
+        "consent": { "license": "MIT", "share_ok": true, "redact_rules": ["**/private/**", "*.secrets.json"] }
+    }
+}

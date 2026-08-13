@@ -19,6 +19,9 @@ Thumbs.db
 # Offline telemetry queue (runtime data)
 diagnostics/queue/
 
+# Fieldlink cache (cloned repos and staged atlas)
+.fieldlink/
+
 # Environment
 .env
 *.log

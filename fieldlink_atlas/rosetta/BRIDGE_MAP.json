@@ -1,0 +1,73 @@
+{
+    "$schema": "../../schemas/fieldlink_bridge.schema.json",
+    "version": "1.0",
+    "updated": "2026-03-24T00:00:00Z",
+    "description": "Bridge map linking BioMachine Ecology modules to Rosetta-Shape-Core shapes, sensors, and ontology",
+
+    "bridges": [
+        {
+            "biomachine_module": "seal_core",
+            "rosetta_shape": "SHAPE.DODECA",
+            "rationale": "Seal genome adaptive parameters map to dodecahedron's 12 principles — each face governs a resilience axis (compression, thermal, chemical, UV, abrasion, etc.)",
+            "links": {
+                "genome": "seal_core/SEAL_GENOME_TEMPLATE.json",
+                "shape": "fieldlink_atlas/rosetta/shapes/dodecahedron.json",
+                "families": ["orientation", "trust", "growth", "boundary"],
+                "sensors": ["EMO:ADMIRATION", "EMO:TRUST"]
+            }
+        },
+        {
+            "biomachine_module": "field_oracle",
+            "rosetta_shape": "SHAPE.ICOSA",
+            "rationale": "Field oracle senses 20 environmental axes (mold, decay, root, soil, moisture, etc.) — maps to icosahedron's 20 family faces",
+            "links": {
+                "soil_map": "field_oracle/soil_map_example.json",
+                "lora_packets": "field_oracle/lora_net/packet_spec.json",
+                "shape": "fieldlink_atlas/rosetta/shapes/icosahedron.json",
+                "families": ["anticipation", "flow", "growth"],
+                "sensors": ["EMO:FEAR", "EMO:EXCITEMENT"]
+            }
+        },
+        {
+            "biomachine_module": "vault/emotions",
+            "rosetta_shape": "SHAPE.OCTA",
+            "rationale": "Emotion-machine mappings mediate between opposing states (grief/presence, loss/repair) — octahedron as dual-of-cube integrates polarities",
+            "links": {
+                "emotion_map": "vault/emotions/emotion_machine_map.json",
+                "grief": "vault/emotions/grief.json",
+                "shape": "fieldlink_atlas/rosetta/shapes/octahedron.json",
+                "families": ["balance", "integration"],
+                "sensors": ["EMO:COMPASSION", "EMO:LOVE"]
+            }
+        },
+        {
+            "biomachine_module": "energy_harvester",
+            "rosetta_shape": "SHAPE.TETRA",
+            "rationale": "Energy harvesting is foundational — minimal structure, maximum stability, like tetrahedron as simplest solid",
+            "links": {
+                "config": "energy_harvester/harvester_config_example.json",
+                "shape": "fieldlink_atlas/rosetta/shapes/tetrahedron.json",
+                "families": ["fire", "stability", "foundation"],
+                "sensors": ["EMO:ANGER", "EMO:PRIDE"]
+            }
+        },
+        {
+            "biomachine_module": "diagnostics",
+            "rosetta_shape": "SHAPE.CUBE",
+            "rationale": "Diagnostics provide structural containment and grounding — boot self-test guards system integrity like cube's 6-face boundary",
+            "links": {
+                "self_test": "diagnostics/self_test.py",
+                "offline_queue": "diagnostics/offline_queue.py",
+                "shape": "fieldlink_atlas/rosetta/shapes/cube.json",
+                "families": ["earth", "stability", "structure", "containment"],
+                "sensors": ["EMO:PEACE", "EMO:CONTENTMENT"]
+            }
+        }
+    ],
+
+    "glyph_bridge": {
+        "source": "materials_glyph_bank/glyph-index.csv",
+        "target": "fieldlink_atlas/rosetta/vocab.json",
+        "note": "BioMachine glyphs encode scrap-material semantics; Rosetta vocab encodes shape-intelligence semantics. The two glyph systems are complementary — material glyphs describe WHAT things are made of, shape glyphs describe HOW they relate."
+    }
+}
