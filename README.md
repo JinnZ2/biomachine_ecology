@@ -84,4 +84,4 @@ See `CONTRIBUTING.md` for guidelines on adding modules, materials, and glyphs.
 - `Biomachine Manifesto.pdf` — founding principles
 - `MANIFESTO_EMOTIONS.md` — emotions as system signals
 - `CONTRIBUTING.md` — adding modules, materials, and glyphs
-- `LICENSE.md` — MIT
+- `LICENSE.md` — CC0-1.0

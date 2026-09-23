@@ -3,7 +3,7 @@ name = "biomachine-ecology"
 version = "0.1.0"
 description = "Scrap-built, field-repairable machines: seals, sensors, harvesters, and a glyph language for their states"
 readme = "README.md"
-license = {text = "MIT"}
+license = "CC0-1.0"
 requires-python = ">=3.8"
 authors = [{name = "JinnZ2"}]
 
