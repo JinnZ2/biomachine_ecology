@@ -83,6 +83,6 @@
         "offline": false,
         "cache_dir": ".fieldlink",
         "integrity": { "enabled": true, "hash": "sha256", "allow_missing": false },
-        "consent": { "license": "MIT", "share_ok": true, "redact_rules": ["**/private/**", "*.secrets.json"] }
+        "consent": { "license": "CC0-1.0", "share_ok": true, "redact_rules": ["**/private/**", "*.secrets.json"] }
     }
 }

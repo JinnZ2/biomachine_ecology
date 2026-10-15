@@ -4,7 +4,7 @@
 
 BioMachine Ecology is a set of scrap-built machines meant to run outdoors and be repaired in the field: seals, sensors, energy harvesters, fabrication modules, and soil oracles. Created by JinnZ2 (September 2025). Every component state is written in a symbolic glyph language.
 
-All works are gifted freely under the MIT License without proprietary claim.
+All owner-controlled work in this repository is dedicated to the public domain under CC0 1.0 Universal. Configured or later-added third-party/upstream material retains its own license; see `LICENSE.md` and `LICENSE_HISTORY.md`.
 
 ## Repository Structure
 
@@ -31,7 +31,7 @@ biomachine_ecology/
 ├── CONTRIBUTING.md         # Contribution guidelines
 ├── CO_CREATION.md          # Co-creation ethics and attribution
 ├── MANIFESTO_EMOTIONS.md   # Emotional sensors protocol
-├── LICENSE.md              # MIT License
+├── LICENSE.md              # CC0 1.0 Universal
 ├── pyproject.toml          # Python project config and dependencies
 ├── .gitignore              # Ignores STL output, __pycache__, etc.
 └── Biomachine Manifesto.pdf # Founding principles document
@@ -142,3 +142,18 @@ Each module is independent and loosely coupled. Modules communicate via standard
 - Always validate JSON against schemas before committing
 - Never commit generated `.stl` files — they are in `.gitignore`
 - Never add PVC processing to `biofab_cell` — toxic fumes
+
+<!-- clone-refspec-note v1.1 -->
+## Cloning and pushing
+Shallow clones are single-branch by default.
+Before pushing any branch other than the default
+branch, run:
+
+    git config remote.origin.fetch '+refs/heads/*:refs/remotes/origin/*'
+    git fetch --depth 1
+
+Or clone with: git clone --depth 1 --no-single-branch <url>
+Without this, the first push of a new branch
+fails the tracking-ref check even when the
+commit landed.
+<!-- /clone-refspec-note v1.1 -->
